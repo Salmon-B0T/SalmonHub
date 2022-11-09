@@ -35,6 +35,36 @@ Section:NewKeybind("Select Keybind:", "keybind to toggle the gui", Enum.KeyCode.
 	Library:ToggleUI()
 end)
 
+
+--_______________________________________________________________________________________________
+
+local Tab = Window:NewTab("Useless things")
+local Section = Tab:NewSection("Useless things")
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Human dildo (r6 only)", "", function()
+
+    local ch = game.Players.LocalPlayer.Character
+    ch["Left Arm"]:Destroy()
+    ch["Right Arm"]:Destroy()
+    ch.Head.Mesh:Destroy()
+
+end)    
+--_______________________________________________________________________________________________
+
+Section:NewButton("Low GFX", "", function()
+
+    local Material = "SmoothPlastic"
+
+    for i,v in next, workspace:GetDescendants() do
+        if v:IsA("BasePart") then
+            v.Material = Material
+        end
+    end
+
+end)
+
 -- taco, dont ask why its here.
 -- 142376088
 --_______________________________________________________________________________________________
