@@ -5,7 +5,7 @@
 -- and please make ur spamming less corny, it makes u look kinda retarded, fun to laugh at though.
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
---logger used to be here
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Salmon-B0T/SalmonHub/main/CoolPeople.lua", true))() --cool people :thumbsup:
 local Window = Library.CreateLib("Salmon's partially skidded dollhouse gui")
 
 
@@ -16,7 +16,9 @@ Text = "Made by Salmon#3917";
 Duration = 5; 
 })
 
+
 --_______________________________________________________________________________________________
+
 local Tab = Window:NewTab("Useful things")
 
 
@@ -29,6 +31,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Salmon-B0T/SalmonHub/
 
 end)
 
+--_______________________________________________________________________________________________
+
 local Section = Tab:NewSection("Toggle UI")
 
 Section:NewKeybind("Select Keybind:", "keybind to toggle the gui", Enum.KeyCode.RightControl, function()
@@ -38,21 +42,40 @@ end)
 
 --_______________________________________________________________________________________________
 
-local Tab = Window:NewTab("Useless things")
-local Section = Tab:NewSection("Useless things")
 
---_______________________________________________________________________________________________
+local Tab = Window:NewTab("Visuals")
 
-Section:NewButton("Human dildo (r6 only)", "", function()
+local Section = Tab:NewSection("BoomBox Color Thing")
 
-    local ch = game.Players.LocalPlayer.Character
-    ch["Left Arm"]:Destroy()
-    ch["Right Arm"]:Destroy()
-    ch.Head.Mesh:Destroy()
+-- shitty color selector that somehow works
+Section:NewColorPicker("Color Selector", "changes colors", Color3.fromRGB(0,0,0), function(color)
 
-end)    
---_______________________________________________________________________________________________
+    local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if v:IsA("Tool") and v.Name == "BoomBox" then
+      v.Handle.Color = color
+      v.Parent = game.Players.LocalPlayer.Character
+    end
+end
 
+end)
+
+
+-- FORCEFIELD BOOMBOX
+Section:NewButton("Forcefield BoombBox", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+
+for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if v:IsA("Tool") and v.Name == "BoomBox" then
+      v.Handle.Material = "ForceField"
+    end
+end
+end)
+
+
+
+local Section = Tab:NewSection("Map Visuals")
 Section:NewButton("Low GFX", "", function()
 
     local Material = "SmoothPlastic"
@@ -64,6 +87,7 @@ Section:NewButton("Low GFX", "", function()
     end
 
 end)
+
 
 -- taco, dont ask why its here.
 -- 142376088
@@ -225,6 +249,14 @@ Tools[9].Parent = plr.Character
 
 Tools[10].Grip = CFrame.new(12.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
 Tools[10].Parent = plr.Character
+
+local hum = game.Players.LocalPlayer.Character.Humanoid
+    
+        for _,x in next, hum:GetPlayingAnimationTracks() do
+            if x.Animation then
+                x:Stop()
+            end
+        end
         
 end)
 
@@ -1487,6 +1519,18 @@ Section:NewButton("Leg's FE Admin", "", function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua'))()
 
 end)
+
+local Section = Tab:NewSection("Useless things")
+-- comments...
+
+Section:NewButton("Human dildo (r6 only)", "", function()
+
+    local ch = game.Players.LocalPlayer.Character
+    ch["Left Arm"]:Destroy()
+    ch["Right Arm"]:Destroy()
+    ch.Head.Mesh:Destroy()
+
+end)    
 
 --_______________________________________________________________________________________________
 -- end of the ui so far, more stuff coming later when i actually learn lua lol
