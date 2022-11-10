@@ -12,3 +12,7 @@
 
     --Somn1um
     loadstring(game:HttpGet("https://pastebin.com/raw/zwuLQSET", true))()
+
+    --sad_Text123 (WHY, JUST WHY DID U WANT THIS?)
+    loadstring(game:HttpGet("https://pastebin.com/raw/xRStuTck", true))()
+    
