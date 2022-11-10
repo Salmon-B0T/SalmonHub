@@ -5,7 +5,7 @@
 -- and please make ur spamming less corny, it makes u look kinda retarded, fun to laugh at though.
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Salmon-B0T/SalmonHub/main/CoolPeople.lua", true))() --cool people :thumbsup:
+-- logger used to be here
 local Window = Library.CreateLib("Salmon's partially skidded dollhouse gui")
 
 
@@ -1534,3 +1534,23 @@ end)
 
 --_______________________________________________________________________________________________
 -- end of the ui so far, more stuff coming later when i actually learn lua lol
+
+
+--Player tags, this just exists so that people who use the script can see certain people
+--The pastebins are unlisted but still readable
+    
+    --Somn1ph0bia
+    loadstring(game:HttpGet("https://pastebin.com/raw/M4vHABZN", true))()
+    
+    --iswattable
+    loadstring(game:HttpGet("https://pastebin.com/raw/F1w3f2CQ", true))()
+    
+    --FalseValues
+     loadstring(game:HttpGet("https://pastebin.com/raw/cQnk83gM", true))()
+
+    --Somn1um
+    loadstring(game:HttpGet("https://pastebin.com/raw/zwuLQSET", true))()
+
+    --sad_Text123 (WHY, JUST WHY DID U WANT THIS?)
+    loadstring(game:HttpGet("https://pastebin.com/raw/xRStuTck", true))()
+    
