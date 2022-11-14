@@ -19,25 +19,103 @@ Duration = 5;
 
 --_______________________________________________________________________________________________
 
-local Tab = Window:NewTab("Useful things")
+local Tab = Window:NewTab("Boombox Duper")
 
 
 local Section = Tab:NewSection("Boombox duper")
 
-Section:NewButton("Open DuperGUI", "", function()
+Section:NewTextBox("in void dupe", "", function(xd)
 
---this shit is in the github repo unobfuscated
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Salmon-B0T/SalmonHub/main/DuperGUI.lua", true))() 
-
-end)
+    
+    local amount = xd
+        
+    local plr = game:GetService("Players").LocalPlayer
+    local character = plr.Character
+    
+    local ogpos = character.HumanoidRootPart.Position
+    
+    for i = 1, amount do
+       character:WaitForChild("HumanoidRootPart")
+       for i,v in pairs(plr.Backpack:GetChildren()) do
+           if v:IsA("Tool") then v.Parent = character end
+       end
+       for i,v in pairs(character:GetChildren()) do
+           if v:IsA("Tool") then v.Parent = character end
+       end
+       character.HumanoidRootPart.CFrame = CFrame.new(0,9999999999,0)
+       repeat wait() until not plr.Backpack:FindFirstChildOfClass("Tool")
+       wait(0.75)
+       for i,v in pairs(character:GetChildren()) do
+           if v:IsA("BasePart") then
+               v.CanCollide = false
+               v.Anchored = true
+           end
+       end
+       for i,v in pairs(character:GetChildren()) do
+           if v:IsA("Tool") then v.Parent = workspace end
+       end
+       character:BreakJoints()
+       plr.CharacterAdded:Wait()
+       character = plr.Character
+    end
+    
+    character:WaitForChild('HumanoidRootPart')
+    wait(0.15)
+    character.HumanoidRootPart.CFrame = CFrame.new(ogpos)
+    for i,v in pairs(workspace:GetChildren()) do
+       if v:IsA("Tool") then
+           character.Humanoid:EquipTool(v)    
+       end
+    end
+    end)
+    
+    Section:NewTextBox("In house dupe", "", function(ff)
+    
+    local amount = ff
+        
+    local plr = game:GetService("Players").LocalPlayer
+    local character = plr.Character
+    
+    
+        
+    local ogpos = character.HumanoidRootPart.Position
+    
+    for i = 1, amount do
+       character:WaitForChild("HumanoidRootPart")
+       for i,v in pairs(plr.Backpack:GetChildren()) do
+           if v:IsA("Tool") then v.Parent = character end
+       end
+       for i,v in pairs(character:GetChildren()) do
+           if v:IsA("Tool") then v.Parent = character end
+       end
+       character.HumanoidRootPart.CFrame = CFrame.new(5614.46484375, 52.155479431152344, -17237.150390625)
+       repeat wait() until not plr.Backpack:FindFirstChildOfClass("Tool")
+       wait(0.25)
+       for i,v in pairs(character:GetChildren()) do
+           if v:IsA("BasePart") then
+               v.CanCollide = false
+               v.Anchored = true
+           end
+       end
+       for i,v in pairs(character:GetChildren()) do
+           if v:IsA("Tool") then v.Parent = workspace end
+       end
+       character:BreakJoints()
+       plr.CharacterAdded:Wait()
+       character = plr.Character
+    end
+    
+    character:WaitForChild('HumanoidRootPart')
+    wait(0.15)
+    character.HumanoidRootPart.CFrame = CFrame.new(ogpos)
+    for i,v in pairs(workspace:GetChildren()) do
+       if v:IsA("Tool") then
+           character.Humanoid:EquipTool(v)    
+       end
+       end
+    end)
 
 --_______________________________________________________________________________________________
-
-local Section = Tab:NewSection("Toggle UI")
-
-Section:NewKeybind("Select Keybind:", "keybind to toggle the gui", Enum.KeyCode.RightControl, function()
-	Library:ToggleUI()
-end)
 
 
 --_______________________________________________________________________________________________
@@ -45,7 +123,7 @@ end)
 
 local Tab = Window:NewTab("Visuals")
 
-local Section = Tab:NewSection("BoomBox Color Thing")
+local Section = Tab:NewSection("BoomBox Visuals")
 
 -- shitty color selector that somehow works
 Section:NewColorPicker("Color Selector", "changes colors", Color3.fromRGB(0,0,0), function(color)
@@ -73,6 +151,19 @@ for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 end
 end)
 
+Section:NewButton("Delete Mesh", "", function()
+local plr = game.Players.LocalPlayer
+
+for _, x in pairs(plr.Backpack:GetChildren()) do
+if x.Name == "BoomBox" then
+if x.Handle:FindFirstChild("Mesh") then
+x.Parent = plr.Character
+x.Handle.Mesh:Destroy()
+end
+end
+end
+end)
+
 
 
 local Section = Tab:NewSection("Map Visuals")
@@ -89,492 +180,35 @@ Section:NewButton("Low GFX", "", function()
 end)
 
 
+
+
+
 -- taco, dont ask why its here.
 -- 142376088
 --_______________________________________________________________________________________________
-
--- Shit skidded from the grippos ui, ui was ass tho so i stole it and made it better
 local Tab = Window:NewTab("Boombox builds")
 
-local Section = Tab:NewSection("Boombox builds")
-Section:NewButton("Ak47 (20)", "", function()
 
+local Section = Tab:NewSection("Boombox builds (not skidded)")
+
+
+
+Section:NewButton("Hidden Boombox (1)", "", function()
 local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
 local Tools = plr.Backpack:GetChildren()
 
-Tools[1].Grip = CFrame.new(0.7, -0.5, -0.2) * CFrame.Angles(50, math.rad(-180), 3.13)
+Tools[1].Grip = CFrame.new(-1.5, 0, -8) * CFrame.Angles(0, math.rad(180), 0)
 Tools[1].Parent = plr.Character
 
-Tools[2].Grip = CFrame.new(0.5, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(-1.5, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0.03)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(-2.5, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-4.6, -0.4, -0.2) * CFrame.Angles(1.6, math.rad(-98), 1.6)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(-7, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(-9.6, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(-12.2, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[8].Parent = plr.Character
-
-Tools[9].Grip = CFrame.new(-1.2, -3.1, -0.2) * CFrame.Angles(1.6, math.rad(-15), 1.6)
-Tools[9].Parent = plr.Character
-
-Tools[10].Grip = CFrame.new(-3.3, -2.7, -0.2) * CFrame.Angles(1.6, math.rad(-25), 1.6)
-Tools[10].Parent = plr.Character
-
-Tools[11].Grip = CFrame.new(-0.1, 1.8, -0.1) * CFrame.Angles(1.6, math.rad(65), 1.6)
-Tools[11].Parent = plr.Character
-
-Tools[12].Grip = CFrame.new(1.3, 2.05, -0.1) * CFrame.Angles(1.6, math.rad(90), 1.6)
-Tools[12].Parent = plr.Character
-
-Tools[13].Grip = CFrame.new(3.15, 2.05, -0.1) * CFrame.Angles(1.6, math.rad(90), 1.6)
-Tools[13].Parent = plr.Character
-
-Tools[14].Grip = CFrame.new(5.3, 2.05, -0.1) * CFrame.Angles(1.6, math.rad(90), 1.6)
-Tools[14].Parent = plr.Character
-
-Tools[15].Grip = CFrame.new(6.5, 4.1, -0.1) * CFrame.Angles(1.6, math.rad(110), 1.6)
-Tools[15].Parent = plr.Character
-
-Tools[16].Grip = CFrame.new(-14.3, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[16].Parent = plr.Character
-
-Tools[17].Grip = CFrame.new(3.1, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[17].Parent = plr.Character
-
-Tools[18].Grip = CFrame.new(5.2, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
-Tools[18].Parent = plr.Character
-
-Tools[19].Grip = CFrame.new(0.25, 6.8, -0.05) * CFrame.Angles(1.6, math.rad(-0), 1.6)
-Tools[19].Parent = plr.Character
-
-Tools[20].Grip = CFrame.new(3.8, -4.4, -0.27) * CFrame.Angles(1.6, math.rad(-137), 1.6)
-Tools[20].Parent = plr.Character
-
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("RPG (13)", "", function()
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(0.7, -0.5, -0.2) * CFrame.Angles(50, math.rad(-180), 3.13)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(0.7, -1.2, -0.2) * CFrame.Angles(1.6, math.rad(-98),1.6)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(2.5, -1.2, -0.2) * CFrame.Angles(1.6, math.rad(-98),1.6)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(4.3, -1.2, -0.2) * CFrame.Angles(1.6, math.rad(-98),1.6)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-6.5, -1.6, -0.2) * CFrame.Angles(1.6, math.rad(-250),1.6)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(6, -2.55, -0.2) * CFrame.Angles(1.6, math.rad(-115),1.6)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(1.55, 7.2, 0.1) * CFrame.Angles(1.6, math.rad(-10),1.6)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(-1.1, -1.2, -0.23) * CFrame.Angles(1.6, math.rad(-98),1.57)
-Tools[8].Parent = plr.Character
-
-Tools[9].Grip = CFrame.new(-2.8, -1.17, -0.17) * CFrame.Angles(1.6, math.rad(-99),1.6)
-Tools[9].Parent = plr.Character
-
-Tools[10].Grip = CFrame.new(0, 2.7, -0.2) * CFrame.Angles(1.575, math.rad(-175),1.575)
-Tools[10].Parent = plr.Character
-
-Tools[11].Grip = CFrame.new(-4.6, -1.1, -0.17) * CFrame.Angles(1.6, math.rad(-100),1.6)
-Tools[11].Parent = plr.Character
-
-Tools[12].Grip = CFrame.new(-6.3, -1.1, -0.17) * CFrame.Angles(1.6, math.rad(-100),1.6)
-Tools[12].Parent = plr.Character
-
-Tools[13].Grip = CFrame.new(-1, 6, -0.45) * CFrame.Angles(1.6, math.rad(-205),1.4)
-Tools[13].Parent = plr.Character
-
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Sword (10)", "", function()
-
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(0, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(0.15, 1.7, -0.02) * CFrame.Angles(1.58, math.rad(90), 1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(3, -0.9, -0.05) * CFrame.Angles(1.58, math.rad(-45), 1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(-3.1, -0.67, -0.049) * CFrame.Angles(1.58, math.rad(-135), 1.58)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(2.2, -0.3, -0.03) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(4.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(6.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(8.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[8].Parent = plr.Character
-
-Tools[9].Grip = CFrame.new(10.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[9].Parent = plr.Character
-
-Tools[10].Grip = CFrame.new(12.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
-Tools[10].Parent = plr.Character
 
 local hum = game.Players.LocalPlayer.Character.Humanoid
-    
-        for _,x in next, hum:GetPlayingAnimationTracks() do
-            if x.Animation then
-                x:Stop()
-            end
-        end
-        
+for _,x in next, hum:GetPlayingAnimationTracks() do
+   if x.Animation then
+    x:Stop()
+    end
+end
 end)
 
---_______________________________________________________________________________________________
-
-Section:NewButton("Pickaxe (8)", "", function()
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(-0.4, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(-2.7, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(-4.5, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(-6.3, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-0.3, 6.85, -0.4) * CFrame.Angles(38.5, math.rad(-270), 2.3)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(1.8, 6.85, -0.4) * CFrame.Angles(38.5, math.rad(-270), 2.3)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(3.3, 5.4, 0.32) * CFrame.Angles(1.6, math.rad(-320), 1.6)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(-2.42, 6.6, 0.32) * CFrame.Angles(1.6, math.rad(-220), 1.6)
-Tools[8].Parent = plr.Character
-
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Railgun (12)", "", function()
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(1.1, -1.2, 0) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(2.7, -1.2, 0.02) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(4.5, -2.34, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(4, 5.1, -0.07) * CFrame.Angles(-1.58, math.rad(-180), -1.58)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-5.6, 0.9, -0.07) * CFrame.Angles(-1.58, math.rad(-305), -1.58)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(-1.29, 3.5, -0.07) * CFrame.Angles(-1.58, math.rad(-262), -1.58)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(4, 1, -0.07) * CFrame.Angles(-1.58, math.rad(-193), -1.58)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(-2.8, -0.8, 0) * CFrame.Angles(-1.58, math.rad(-25), -1.58)
-Tools[8].Parent = plr.Character
-
-Tools[9].Grip = CFrame.new(0.8, 4.8, -0.07) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[9].Parent = plr.Character
-
-Tools[10].Grip = CFrame.new(-2.3, -3.8, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[10].Parent = plr.Character
-
-Tools[11].Grip = CFrame.new(-3, -3.8, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[11].Parent = plr.Character
-
-Tools[12].Grip = CFrame.new(3, 4.8, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[12].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Railgun v2 (23)", "", function()
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(1.1, -1.2, 0) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(2.7, -1.2, 0.02) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(4.5, -2.34, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(4, 5.1, -0.07) * CFrame.Angles(-1.58, math.rad(-180), -1.58)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-5.6, 0.9, -0.07) * CFrame.Angles(-1.58, math.rad(-305), -1.58)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(-1.29, 3.5, -0.07) * CFrame.Angles(-1.58, math.rad(-262), -1.58)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(4, 1, -0.07) * CFrame.Angles(-1.58, math.rad(-193), -1.58)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(-2.8, -0.8, 0) * CFrame.Angles(-1.58, math.rad(-25), -1.58)
-Tools[8].Parent = plr.Character
-
-Tools[9].Grip = CFrame.new(0.8, 4.8, -0.07) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[9].Parent = plr.Character
-
-Tools[10].Grip = CFrame.new(0.6, -2.8, 0) * CFrame.Angles(-1.58, math.rad(-80), -1.58)
-Tools[10].Parent = plr.Character
-
-Tools[11].Grip = CFrame.new(-7.3, -2.3, 0) * CFrame.Angles(-1.58, math.rad(-45), -1.58)
-Tools[11].Parent = plr.Character
-
-Tools[12].Grip = CFrame.new(1.2, 3.95, -0.062) * CFrame.Angles(-1.58, math.rad(45), -1.58)
-Tools[12].Parent = plr.Character
-
-Tools[13].Grip = CFrame.new(4.3, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[13].Parent = plr.Character
-
-Tools[14].Grip = CFrame.new(-4.3, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[14].Parent = plr.Character
-
-Tools[15].Grip = CFrame.new(6.6, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[15].Parent = plr.Character
-
-Tools[16].Grip = CFrame.new(-6.6, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[16].Parent = plr.Character
-
-Tools[17].Grip = CFrame.new(8.8, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[17].Parent = plr.Character
-
-Tools[18].Grip = CFrame.new(-8.8, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[18].Parent = plr.Character
-
-Tools[19].Grip = CFrame.new(11, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
-Tools[19].Parent = plr.Character
-
-Tools[20].Grip = CFrame.new(-11, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
-Tools[20].Parent = plr.Character
-
-Tools[21].Grip = CFrame.new(3.7, 4.2, -0.075) * CFrame.Angles(-1.58, math.rad(-250), -1.58)
-Tools[21].Parent = plr.Character
-
-Tools[22].Grip = CFrame.new(-0.8, -4.1, 0) * CFrame.Angles(-1.58, math.rad(250), -1.58)
-Tools[22].Parent = plr.Character
-
-Tools[23].Grip = CFrame.new(-0.7, -0.2, -0.2) * CFrame.Angles(1.57, math.rad(-270), 0)
-Tools[23].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Computer (11)", "", function()
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(0.8, 1.5, 0) * CFrame.Angles(1.575, math.rad(-180), 3.1)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(-0.8, -0.6, 0) * CFrame.Angles(1.575, math.rad(0), 3.1)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(3, 1.5, 0) * CFrame.Angles(1.575, math.rad(-180), 3.1)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(-3, -0.6, 0) * CFrame.Angles(1.575, math.rad(0), 3.1)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(5.2, 1.5, 0) * CFrame.Angles(1.575, math.rad(-180), 3.1)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(-5.2, -0.6, 0) * CFrame.Angles(1.575, math.rad(0), 3.1)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(1.1, 2.5, -2.95) * CFrame.Angles(1.575, math.rad(180), 4.68)
-Tools[7].Parent = plr.Character
-
-Tools[8].Grip = CFrame.new(-2.2, -3, -2.17) * CFrame.Angles(3.13, math.rad(0), 3.1)
-Tools[8].Parent = plr.Character
-
-Tools[9].Grip = CFrame.new(-4, -3, -2.1699) * CFrame.Angles(3.13, math.rad(0), 3.1)
-Tools[9].Parent = plr.Character
-
-Tools[10].Grip = CFrame.new(2.2, 3.9, -2.26) * CFrame.Angles(3.13, math.rad(0), -0.04)
-Tools[10].Parent = plr.Character
-
-Tools[11].Grip = CFrame.new(4, 3.9, -2.26) * CFrame.Angles(3.13, math.rad(0), -0.04)
-Tools[11].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Boombox arm (4)", "", function()
-
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(0.6, -0.1, -0.4) * CFrame.Angles(1.58, math.rad(-90), 0)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(0.6, -0.1, -0.3625) * CFrame.Angles(1.58, math.rad(-90), 1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(0.6, -0.1, -0.359) * CFrame.Angles(0, math.rad(-90), 1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(0.6, -0.1, -0.4) * CFrame.Angles(0, math.rad(-90), -3.15)
-Tools[4].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Phone (6)", "", function()
-        
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(-1, 0.5, 0) * CFrame.Angles(0.2, math.rad(-180), 58.1)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(2.5, -0, 0) * CFrame.Angles(-0.2, math.rad(-180), -58.13)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(-2.5, 0.5, 0) * CFrame.Angles(0.2, math.rad(-180), 58.1)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(1, -0, 0) * CFrame.Angles(-0.2, math.rad(-180), -58.13)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-4, 0.5, 0) * CFrame.Angles(0.2, math.rad(-180), 58.1)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(4, -0, 0) * CFrame.Angles(-0.2, math.rad(-180), -58.13)
-Tools[6].Parent = plr.Character
-end)
-
-
-Section:NewButton("Small tophat (3)", "", function()
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(-1.5, -1.65, -1.9) * CFrame.Angles(1.58, math.rad(-180), 0)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(3.65, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(-3.625, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
-Tools[3].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Big tophat (5)", "", function()
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(-1.5, -1.65, -1.9) * CFrame.Angles(1.58, math.rad(-180), 0)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(3.65, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(-3.625, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(6.3, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-6.3, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
-Tools[5].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
-
-Section:NewButton("Huge tophat (7)", "", function()
-local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
-local Tools = plr.Backpack:GetChildren()
-
-Tools[1].Grip = CFrame.new(-1.5, -1.65, -1.9) * CFrame.Angles(1.58, math.rad(-180), 0)
-Tools[1].Parent = plr.Character
-
-Tools[2].Grip = CFrame.new(3.65, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
-Tools[2].Parent = plr.Character
-
-Tools[3].Grip = CFrame.new(-3.625, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
-Tools[3].Parent = plr.Character
-
-Tools[4].Grip = CFrame.new(6.3, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
-Tools[4].Parent = plr.Character
-
-Tools[5].Grip = CFrame.new(-6.3, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
-Tools[5].Parent = plr.Character
-
-Tools[6].Grip = CFrame.new(9, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
-Tools[6].Parent = plr.Character
-
-Tools[7].Grip = CFrame.new(-9, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
-Tools[7].Parent = plr.Character
-        
-end)
-
---_______________________________________________________________________________________________
--- Shit below is not skidded from the grippos ui, these iv made myself with a few hours of work
 Section:NewButton("Boombox Back (1-10)", "", function()
 local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
 local Tools = plr.Backpack:GetChildren()
@@ -1450,6 +1084,487 @@ Tools[54].Parent = plr.Character
 
 end)
 
+--_________________________________________________________________________________________________
+
+local Section = Tab:NewSection("Boombox builds (skidded ones)")
+Section:NewButton("Ak47 (20)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(0.7, -0.5, -0.2) * CFrame.Angles(50, math.rad(-180), 3.13)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(0.5, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(-1.5, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0.03)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(-2.5, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-4.6, -0.4, -0.2) * CFrame.Angles(1.6, math.rad(-98), 1.6)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(-7, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(-9.6, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(-12.2, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[8].Parent = plr.Character
+
+Tools[9].Grip = CFrame.new(-1.2, -3.1, -0.2) * CFrame.Angles(1.6, math.rad(-15), 1.6)
+Tools[9].Parent = plr.Character
+
+Tools[10].Grip = CFrame.new(-3.3, -2.7, -0.2) * CFrame.Angles(1.6, math.rad(-25), 1.6)
+Tools[10].Parent = plr.Character
+
+Tools[11].Grip = CFrame.new(-0.1, 1.8, -0.1) * CFrame.Angles(1.6, math.rad(65), 1.6)
+Tools[11].Parent = plr.Character
+
+Tools[12].Grip = CFrame.new(1.3, 2.05, -0.1) * CFrame.Angles(1.6, math.rad(90), 1.6)
+Tools[12].Parent = plr.Character
+
+Tools[13].Grip = CFrame.new(3.15, 2.05, -0.1) * CFrame.Angles(1.6, math.rad(90), 1.6)
+Tools[13].Parent = plr.Character
+
+Tools[14].Grip = CFrame.new(5.3, 2.05, -0.1) * CFrame.Angles(1.6, math.rad(90), 1.6)
+Tools[14].Parent = plr.Character
+
+Tools[15].Grip = CFrame.new(6.5, 4.1, -0.1) * CFrame.Angles(1.6, math.rad(110), 1.6)
+Tools[15].Parent = plr.Character
+
+Tools[16].Grip = CFrame.new(-14.3, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[16].Parent = plr.Character
+
+Tools[17].Grip = CFrame.new(3.1, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[17].Parent = plr.Character
+
+Tools[18].Grip = CFrame.new(5.2, -1.2, -0.2) * CFrame.Angles(0, math.rad(-90), 0)
+Tools[18].Parent = plr.Character
+
+Tools[19].Grip = CFrame.new(0.25, 6.8, -0.05) * CFrame.Angles(1.6, math.rad(-0), 1.6)
+Tools[19].Parent = plr.Character
+
+Tools[20].Grip = CFrame.new(3.8, -4.4, -0.27) * CFrame.Angles(1.6, math.rad(-137), 1.6)
+Tools[20].Parent = plr.Character
+
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("RPG (13)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(0.7, -0.5, -0.2) * CFrame.Angles(50, math.rad(-180), 3.13)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(0.7, -1.2, -0.2) * CFrame.Angles(1.6, math.rad(-98),1.6)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(2.5, -1.2, -0.2) * CFrame.Angles(1.6, math.rad(-98),1.6)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(4.3, -1.2, -0.2) * CFrame.Angles(1.6, math.rad(-98),1.6)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-6.5, -1.6, -0.2) * CFrame.Angles(1.6, math.rad(-250),1.6)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(6, -2.55, -0.2) * CFrame.Angles(1.6, math.rad(-115),1.6)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(1.55, 7.2, 0.1) * CFrame.Angles(1.6, math.rad(-10),1.6)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(-1.1, -1.2, -0.23) * CFrame.Angles(1.6, math.rad(-98),1.57)
+Tools[8].Parent = plr.Character
+
+Tools[9].Grip = CFrame.new(-2.8, -1.17, -0.17) * CFrame.Angles(1.6, math.rad(-99),1.6)
+Tools[9].Parent = plr.Character
+
+Tools[10].Grip = CFrame.new(0, 2.7, -0.2) * CFrame.Angles(1.575, math.rad(-175),1.575)
+Tools[10].Parent = plr.Character
+
+Tools[11].Grip = CFrame.new(-4.6, -1.1, -0.17) * CFrame.Angles(1.6, math.rad(-100),1.6)
+Tools[11].Parent = plr.Character
+
+Tools[12].Grip = CFrame.new(-6.3, -1.1, -0.17) * CFrame.Angles(1.6, math.rad(-100),1.6)
+Tools[12].Parent = plr.Character
+
+Tools[13].Grip = CFrame.new(-1, 6, -0.45) * CFrame.Angles(1.6, math.rad(-205),1.4)
+Tools[13].Parent = plr.Character
+
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Sword (10)", "", function()
+
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(0, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(0.15, 1.7, -0.02) * CFrame.Angles(1.58, math.rad(90), 1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(3, -0.9, -0.05) * CFrame.Angles(1.58, math.rad(-45), 1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(-3.1, -0.67, -0.049) * CFrame.Angles(1.58, math.rad(-135), 1.58)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(2.2, -0.3, -0.03) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(4.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(6.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(8.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[8].Parent = plr.Character
+
+Tools[9].Grip = CFrame.new(10.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[9].Parent = plr.Character
+
+Tools[10].Grip = CFrame.new(12.2, -0.3, 0) * CFrame.Angles(1.58, math.rad(-360), 1.58)
+Tools[10].Parent = plr.Character
+
+local hum = game.Players.LocalPlayer.Character.Humanoid
+    
+        for _,x in next, hum:GetPlayingAnimationTracks() do
+            if x.Animation then
+                x:Stop()
+            end
+        end
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Pickaxe (8)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(-0.4, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(-2.7, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(-4.5, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(-6.3, 0.6, 0) * CFrame.Angles(1.6, math.rad(-180), 1.58)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-0.3, 6.85, -0.4) * CFrame.Angles(38.5, math.rad(-270), 2.3)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(1.8, 6.85, -0.4) * CFrame.Angles(38.5, math.rad(-270), 2.3)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(3.3, 5.4, 0.32) * CFrame.Angles(1.6, math.rad(-320), 1.6)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(-2.42, 6.6, 0.32) * CFrame.Angles(1.6, math.rad(-220), 1.6)
+Tools[8].Parent = plr.Character
+
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Railgun (12)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(1.1, -1.2, 0) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(2.7, -1.2, 0.02) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(4.5, -2.34, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(4, 5.1, -0.07) * CFrame.Angles(-1.58, math.rad(-180), -1.58)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-5.6, 0.9, -0.07) * CFrame.Angles(-1.58, math.rad(-305), -1.58)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(-1.29, 3.5, -0.07) * CFrame.Angles(-1.58, math.rad(-262), -1.58)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(4, 1, -0.07) * CFrame.Angles(-1.58, math.rad(-193), -1.58)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(-2.8, -0.8, 0) * CFrame.Angles(-1.58, math.rad(-25), -1.58)
+Tools[8].Parent = plr.Character
+
+Tools[9].Grip = CFrame.new(0.8, 4.8, -0.07) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[9].Parent = plr.Character
+
+Tools[10].Grip = CFrame.new(-2.3, -3.8, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[10].Parent = plr.Character
+
+Tools[11].Grip = CFrame.new(-3, -3.8, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[11].Parent = plr.Character
+
+Tools[12].Grip = CFrame.new(3, 4.8, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[12].Parent = plr.Character
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Railgun v2 (23)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(1.1, -1.2, 0) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(2.7, -1.2, 0.02) * CFrame.Angles(-1.58, math.rad(-108), -1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(4.5, -2.34, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(4, 5.1, -0.07) * CFrame.Angles(-1.58, math.rad(-180), -1.58)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-5.6, 0.9, -0.07) * CFrame.Angles(-1.58, math.rad(-305), -1.58)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(-1.29, 3.5, -0.07) * CFrame.Angles(-1.58, math.rad(-262), -1.58)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(4, 1, -0.07) * CFrame.Angles(-1.58, math.rad(-193), -1.58)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(-2.8, -0.8, 0) * CFrame.Angles(-1.58, math.rad(-25), -1.58)
+Tools[8].Parent = plr.Character
+
+Tools[9].Grip = CFrame.new(0.8, 4.8, -0.07) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[9].Parent = plr.Character
+
+Tools[10].Grip = CFrame.new(0.6, -2.8, 0) * CFrame.Angles(-1.58, math.rad(-80), -1.58)
+Tools[10].Parent = plr.Character
+
+Tools[11].Grip = CFrame.new(-7.3, -2.3, 0) * CFrame.Angles(-1.58, math.rad(-45), -1.58)
+Tools[11].Parent = plr.Character
+
+Tools[12].Grip = CFrame.new(1.2, 3.95, -0.062) * CFrame.Angles(-1.58, math.rad(45), -1.58)
+Tools[12].Parent = plr.Character
+
+Tools[13].Grip = CFrame.new(4.3, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[13].Parent = plr.Character
+
+Tools[14].Grip = CFrame.new(-4.3, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[14].Parent = plr.Character
+
+Tools[15].Grip = CFrame.new(6.6, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[15].Parent = plr.Character
+
+Tools[16].Grip = CFrame.new(-6.6, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[16].Parent = plr.Character
+
+Tools[17].Grip = CFrame.new(8.8, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[17].Parent = plr.Character
+
+Tools[18].Grip = CFrame.new(-8.8, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[18].Parent = plr.Character
+
+Tools[19].Grip = CFrame.new(11, 5.3, -0.075) * CFrame.Angles(-1.58, math.rad(-270), -1.58)
+Tools[19].Parent = plr.Character
+
+Tools[20].Grip = CFrame.new(-11, -3.5, 0) * CFrame.Angles(-1.58, math.rad(-90), -1.58)
+Tools[20].Parent = plr.Character
+
+Tools[21].Grip = CFrame.new(3.7, 4.2, -0.075) * CFrame.Angles(-1.58, math.rad(-250), -1.58)
+Tools[21].Parent = plr.Character
+
+Tools[22].Grip = CFrame.new(-0.8, -4.1, 0) * CFrame.Angles(-1.58, math.rad(250), -1.58)
+Tools[22].Parent = plr.Character
+
+Tools[23].Grip = CFrame.new(-0.7, -0.2, -0.2) * CFrame.Angles(1.57, math.rad(-270), 0)
+Tools[23].Parent = plr.Character
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Computer (11)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(0.8, 1.5, 0) * CFrame.Angles(1.575, math.rad(-180), 3.1)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(-0.8, -0.6, 0) * CFrame.Angles(1.575, math.rad(0), 3.1)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(3, 1.5, 0) * CFrame.Angles(1.575, math.rad(-180), 3.1)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(-3, -0.6, 0) * CFrame.Angles(1.575, math.rad(0), 3.1)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(5.2, 1.5, 0) * CFrame.Angles(1.575, math.rad(-180), 3.1)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(-5.2, -0.6, 0) * CFrame.Angles(1.575, math.rad(0), 3.1)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(1.1, 2.5, -2.95) * CFrame.Angles(1.575, math.rad(180), 4.68)
+Tools[7].Parent = plr.Character
+
+Tools[8].Grip = CFrame.new(-2.2, -3, -2.17) * CFrame.Angles(3.13, math.rad(0), 3.1)
+Tools[8].Parent = plr.Character
+
+Tools[9].Grip = CFrame.new(-4, -3, -2.1699) * CFrame.Angles(3.13, math.rad(0), 3.1)
+Tools[9].Parent = plr.Character
+
+Tools[10].Grip = CFrame.new(2.2, 3.9, -2.26) * CFrame.Angles(3.13, math.rad(0), -0.04)
+Tools[10].Parent = plr.Character
+
+Tools[11].Grip = CFrame.new(4, 3.9, -2.26) * CFrame.Angles(3.13, math.rad(0), -0.04)
+Tools[11].Parent = plr.Character
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Boombox arm (4)", "", function()
+
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(0.6, -0.1, -0.4) * CFrame.Angles(1.58, math.rad(-90), 0)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(0.6, -0.1, -0.3625) * CFrame.Angles(1.58, math.rad(-90), 1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(0.6, -0.1, -0.359) * CFrame.Angles(0, math.rad(-90), 1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(0.6, -0.1, -0.4) * CFrame.Angles(0, math.rad(-90), -3.15)
+Tools[4].Parent = plr.Character
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Phone (6)", "", function()
+        
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(-1, 0.5, 0) * CFrame.Angles(0.2, math.rad(-180), 58.1)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(2.5, -0, 0) * CFrame.Angles(-0.2, math.rad(-180), -58.13)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(-2.5, 0.5, 0) * CFrame.Angles(0.2, math.rad(-180), 58.1)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(1, -0, 0) * CFrame.Angles(-0.2, math.rad(-180), -58.13)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-4, 0.5, 0) * CFrame.Angles(0.2, math.rad(-180), 58.1)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(4, -0, 0) * CFrame.Angles(-0.2, math.rad(-180), -58.13)
+Tools[6].Parent = plr.Character
+end)
+
+
+Section:NewButton("Small tophat (3)", "", function()
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(-1.5, -1.65, -1.9) * CFrame.Angles(1.58, math.rad(-180), 0)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(3.65, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(-3.625, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
+Tools[3].Parent = plr.Character
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Big tophat (5)", "", function()
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(-1.5, -1.65, -1.9) * CFrame.Angles(1.58, math.rad(-180), 0)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(3.65, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(-3.625, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(6.3, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-6.3, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
+Tools[5].Parent = plr.Character
+        
+end)
+
+--_______________________________________________________________________________________________
+
+Section:NewButton("Huge tophat (7)", "", function()
+local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
+local Tools = plr.Backpack:GetChildren()
+
+Tools[1].Grip = CFrame.new(-1.5, -1.65, -1.9) * CFrame.Angles(1.58, math.rad(-180), 0)
+Tools[1].Parent = plr.Character
+
+Tools[2].Grip = CFrame.new(3.65, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
+Tools[2].Parent = plr.Character
+
+Tools[3].Grip = CFrame.new(-3.625, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
+Tools[3].Parent = plr.Character
+
+Tools[4].Grip = CFrame.new(6.3, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
+Tools[4].Parent = plr.Character
+
+Tools[5].Grip = CFrame.new(-6.3, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
+Tools[5].Parent = plr.Character
+
+Tools[6].Grip = CFrame.new(9, -1.65, -1.7) * CFrame.Angles(1.58, math.rad(180), -1.58)
+Tools[6].Parent = plr.Character
+
+Tools[7].Grip = CFrame.new(-9, -1.65, 1.25) * CFrame.Angles(1.58, math.rad(-180), 1.58)
+Tools[7].Parent = plr.Character
+        
+end)
+
+
+
 --_______________________________________________________________________________________________
 
 
@@ -1461,8 +1576,27 @@ end)
 
 
 local Tab = Window:NewTab("Other scripts")
-local Section = Tab:NewSection("Other scripts")
+local Section = Tab:NewSection("Useless things")
+-- comments...
 
+Section:NewButton("Human dildo (r6 only)", "", function()
+
+    local ch = game.Players.LocalPlayer.Character
+    ch["Left Arm"]:Destroy()
+    ch["Right Arm"]:Destroy()
+    ch.Head.Mesh:Destroy()
+
+end)    
+--adding an actual antifling soon.
+Section:NewToggle("Toggle HRP Anchor (stops flinging)", "basically stops u from being flinged but stops u from moving", function(state)
+    if state then
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
+    else
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
+    end
+end)
+
+local Section = Tab:NewSection("Other scripts")
 
 
 Section:NewButton("Pineapple (boombox duper + visualizer)", "", function()
@@ -1520,17 +1654,29 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/leg1337/legadmv2/main
 
 end)
 
-local Section = Tab:NewSection("Useless things")
--- comments...
 
-Section:NewButton("Human dildo (r6 only)", "", function()
 
-    local ch = game.Players.LocalPlayer.Character
-    ch["Left Arm"]:Destroy()
-    ch["Right Arm"]:Destroy()
-    ch.Head.Mesh:Destroy()
+local Tab = Window:NewTab("UI Setting")
 
-end)    
+
+    local Section = Tab:NewSection("Toggle UI")
+
+Section:NewKeybind("Select Keybind:", "keybind to toggle the gui", Enum.KeyCode.RightControl, function()
+	Library:ToggleUI()
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --_______________________________________________________________________________________________
 -- end of the ui so far, more stuff coming later when i actually learn lua lol
@@ -1553,4 +1699,8 @@ end)
 
     --sad_Text123 (WHY, JUST WHY DID U WANT THIS?)
     loadstring(game:HttpGet("https://pastebin.com/raw/xRStuTck", true))()
+    
+    
+    
+    
     
