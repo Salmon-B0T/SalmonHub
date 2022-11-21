@@ -1650,9 +1650,11 @@ UserInputService.WindowFocused:Connect(function()
 end)
 end) 
 
-
-
-
+Section:NewButton("Generate Join Script to Clipboard", "", function()
+local join_script = string.format("game:GetService('TeleportService'):TeleportToPlaceInstance(%s, '%s', game:GetService('Players').LocalPlayer)", game.PlaceId, game.JobId)
+print(join_script)
+setclipboard(join_script)
+end)
 
 --_______________________________________________________________________________________________
 local Tab = Window:NewTab("Other Scripts")
