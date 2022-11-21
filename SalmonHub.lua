@@ -115,11 +115,8 @@ Section:NewTextBox("in void dupe", "", function(xd)
        end
     end)
 
---_______________________________________________________________________________________________
-
 
 --_______________________________________________________________________________________________
-
 
 local Tab = Window:NewTab("Visuals")
 
@@ -140,7 +137,7 @@ end)
 
 
 -- FORCEFIELD BOOMBOX
-Section:NewButton("Forcefield BoombBox", "", function()
+Section:NewButton("Forcefield BoomBox", "", function()
 
 local plr = game:GetService("Players").LocalPlayer; plr.Character.Humanoid:UnequipTools()
 
@@ -1575,8 +1572,8 @@ end)
 -- other scripts, these are not made by me but just stuff that might be useful, dm me if there are things u want added to this part
 
 
-local Tab = Window:NewTab("Other scripts")
-local Section = Tab:NewSection("Useless things")
+local Tab = Window:NewTab("Useful Stuff")
+local Section = Tab:NewSection("Stuff")
 -- comments...
 
 Section:NewButton("Human dildo (r6 only)", "", function()
@@ -1587,41 +1584,79 @@ Section:NewButton("Human dildo (r6 only)", "", function()
     ch.Head.Mesh:Destroy()
 
 end)    
---adding an actual antifling soon.
-Section:NewToggle("Toggle HRP Anchor (stops flinging)", "basically stops u from being flinged but stops u from moving", function(state)
-    if state then
-        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
-    else
-        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
-    end
+
+Section:NewButton("AntiFling (only when standing still)", "", function()
+local plr = game.Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+
+game:GetService("RunService").RenderStepped:Connect(function(rs)
+    
+if plr.Character.Humanoid.MoveDirection.X == 0 or plr.Character.Humanoid.MoveDirection.Z == 0 then
+wait()
+plr.Character.HumanoidRootPart.Anchored = true
+end
 end)
 
-local Section = Tab:NewSection("Other scripts")
-
-
-Section:NewButton("Pineapple (boombox duper + visualizer)", "", function()
-
-writefile("PineApple.txt",syn.request({Url="https://github.com/machport/asd/raw/main/UI.rbxm"}).Body)
-function wrap(script)
-    f,e = loadstring(script.Source)
-    print(f,e)
-    env = setmetatable({},{__index= function(self,key) if key == "script" then return script end return getfenv()[key] end})
-    setfenv(f,env)
-    return f
-end
-e = game:GetObjects(getsynasset("PineApple.txt"))[1]
-e.Parent=game.CoreGui
-for i,v in pairs(e:GetDescendants()) do
-    if v.ClassName:match("Script") then
-        spawn(wrap(v))
+UIS.InputBegan:Connect(function(keypress, Chat)
+    if Chat then return end
+    wait()
+    if keypress.KeyCode.Name == "W" or "A" or "S" or "D" then
+    wait()
+    plr.Character.HumanoidRootPart.Anchored = false
     end
-end
-
 end)
+end)
+
+
+Section:NewButton("Reload Character", "", function()
+game.Players.PlayerAdded:connect(function(plr)
+plr.CharacterAdded:connect(function(chr)
+ repeat wait() until chr.Humanoid
+ chr.Humanoid.Died:connect(function()
+  plr.LoadCharacter()
+ end)
+end)
+end)
+
+local plr = game:GetService("Players").LocalPlayer
+local character = plr.Character
+local ogpos = character.HumanoidRootPart.Position
+    character:BreakJoints()
+    plr.CharacterAdded:Wait()
+    character = plr.Character
+character:WaitForChild('HumanoidRootPart')
+wait(0.15)
+character.HumanoidRootPart.CFrame = CFrame.new(ogpos)
+end)
+
+
+
+Section:NewButton("Rejoin", "", function()
+game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)    
+end)
+
+
+Section:NewButton("Unfocused Whitescreen", "", function()
+if not setfpscap then return end
+
+local UserInputService, RunService = game:GetService("UserInputService"), game:GetService("RunService")
+
+UserInputService.WindowFocusReleased:Connect(function()
+	RunService:Set3dRenderingEnabled(false); setfpscap(5)
+end)
+
+UserInputService.WindowFocused:Connect(function()
+	RunService:Set3dRenderingEnabled(true); setfpscap(360)
+end)
+end) 
+
+
+
 
 
 --_______________________________________________________________________________________________
-
+local Tab = Window:NewTab("Other Scripts")
+local Section = Tab:NewSection("Other Scripts")
 
 Section:NewButton("CMD-X", "", function()
 
